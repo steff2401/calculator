@@ -92,10 +92,10 @@ function handleOperatorClick(operatorSymbol) {
     return () => {
 
         if (operatorClicked) {
-            // If two numbers and an operator alredy is in the screen, calculate that first
-            // before adding the operator to the result
+            // If two numbers and an operator already is in the screen, calculate that first
+            // before adding the new operator to the result
             // example: 1+2+3 
-            // when the user enters the second + (between 2 and 3), the 1+2 will be calculated and 
+            // when the user enters the new operator (+ between 2 and 3), the 1+2 will be calculated and 
             // result (3) shown on the screen with the + after it (3+). The user can then
             // enter 3 (screen will show 3+3) and get the final result (6). 
             equalsButton.click();
@@ -107,11 +107,19 @@ function handleOperatorClick(operatorSymbol) {
             }
         }
 
+        if (num1 === "") { // if an operator is clicked without a first number don't do anything...
+
+            if (operatorSymbol === "-") { // except when you want the first number to be negative
+                num1 += operatorSymbol;
+                screenContent.textContent += operatorSymbol;
+            }
+            return;
+        }
+
         operatorClicked = true;
-        if (num1 === "") return;
         num1 = screenContent.textContent;
         operator = operatorSymbol;
-        screenContent.textContent += operatorSymbol;        
+        screenContent.textContent += operatorSymbol;
     }
 }
 
