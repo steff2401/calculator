@@ -54,6 +54,14 @@ resetButton.addEventListener("click", () => {
     screenContent.textContent = "";
 });
 
+const commaButton = document.querySelector(".dot-comma");
+commaButton.addEventListener("click", () => {
+    screenContent.textContent += ".";
+    if (operatorClicked) {
+        num2 += ".";
+    }
+});
+
 // operator buttons
 
 const additionButton = document.querySelector(".addition");
@@ -79,7 +87,10 @@ multiplicationButton.addEventListener("click", handleOperatorClick("x"));
 divisionButton.addEventListener("click", handleOperatorClick("/"));
 
 equalsButton.addEventListener("click", () => {
-    screenContent.textContent = operate(num1, operator, num2);
+    let result = operate(num1, operator, num2);
+    screenContent.textContent = result;
+    num1 = result;
+    num2 = "";
 });
 
 // number buttons
@@ -121,5 +132,4 @@ eightButton.addEventListener("click", handleNumberClick(8));
 nineButton.addEventListener("click", handleNumberClick(9));
 
 // bugs funnet hittil
-
 
