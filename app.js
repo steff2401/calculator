@@ -1,38 +1,21 @@
-
-function addition(num1, num2) {
-    return Number(num1)+Number(num2);
-}
-
-function subtraction(num1, num2) {
-    return Number(num1)-Number(num2);
-}
-
-function multiplication(num1, num2) {
-    return Number(num1)*Number(num2);
-}
-
-function division(num1, num2) {
-    return Number(num1)/Number(num2);
-}
-
 function operate(num1, operator, num2) {
 
     switch (operator) {
 
         case "+":
-            return addition(num1, num2);
+            return Number(num1)+Number(num2);
             break;
 
         case "-":
-            return subtraction(num1, num2);
+            return Number(num1)-Number(num2);
             break;
 
         case "x":
-            return multiplication(num1, num2);
+            return Number(num1)*Number(num2);
             break;
 
         case "/":
-            return division(num1, num2);
+            return Number(num1)/Number(num2);
             break;
     }
 }
@@ -40,9 +23,8 @@ function operate(num1, operator, num2) {
 let num1 = "";
 let operator = "";
 let num2 = "";
-let operatorClicked = false;
-
 const screenContent = document.querySelector(".screen-content");
+let operatorClicked = false;
 
 // misc buttons
 const resetButton = document.querySelector(".reset");
@@ -62,54 +44,34 @@ commaButton.addEventListener("click", () => {
     }
 });
 
-// operator buttons
+const deleteButton = document.querySelector(".delete");
+deleteButton.addEventListener("click", () => {
 
-const additionButton = document.querySelector(".addition");
-const subtractionButton = document.querySelector(".subtraction");
-const multiplicationButton = document.querySelector(".multiplication");
-const divisionButton = document.querySelector(".division");
-const equalsButton = document.querySelector(".equals"); 
+    if (num2.length !== 0) {
+        num2 = num2.substring(0,num2.length-1);
 
-function handleOperatorClick(operatorSymbol) {
-    
-    return () => {
+    } else if (operatorClicked) {
+        operator = "";
+        operatorClicked = false;
 
-        if (operatorClicked) {
-            equalsButton.click();
-        }
-        
-        operatorClicked = true;
-        if (num1 === "") return;
-        num1 = screenContent.textContent;
-        operator = operatorSymbol;
-        screenContent.textContent += operatorSymbol;
+    } else if (num1.length !== 0) {
+        num1 = num1.substring(0,num1.length-1);
     }
-}
+    screenContent.textContent = screenContent.textContent.substring(0, screenContent.textContent.length-1);
 
-additionButton.addEventListener("click", handleOperatorClick("+"));
-subtractionButton.addEventListener("click", handleOperatorClick("-"));
-multiplicationButton.addEventListener("click", handleOperatorClick("x"));
-divisionButton.addEventListener("click", handleOperatorClick("/"));
-
-equalsButton.addEventListener("click", () => {
-    let result = operate(num1, operator, num2);
-    screenContent.textContent = result;
-    num1 = result;
-    num2 = "";
 });
 
-// number buttons
+// number and operator buttons (excluding equals button)
+const buttons = Array.from(document.querySelectorAll("button"));
+buttons.forEach((button) => {
 
-const zeroButton = document.querySelector("#zero");
-const oneButton = document.querySelector("#one");
-const twoButton = document.querySelector("#two");
-const threeButton = document.querySelector("#three");
-const fourButton = document.querySelector("#four");
-const fiveButton = document.querySelector("#five");
-const sixButton = document.querySelector("#six");
-const sevenButton = document.querySelector("#seven");
-const eightButton = document.querySelector("#eight");
-const nineButton = document.querySelector("#nine");
+    if (button.classList.contains("number-button")) {
+        button.addEventListener("click", handleNumberClick(button.textContent))
+
+    } else if (button.classList.contains("operator-button")) {
+        button.addEventListener("click", handleOperatorClick(button.textContent));
+    }
+});
 
 function handleNumberClick(number) { 
     return () => {
@@ -125,16 +87,28 @@ function handleNumberClick(number) {
     }
 }
 
-zeroButton.addEventListener("click", handleNumberClick(0));
-oneButton.addEventListener("click", handleNumberClick(1));
-twoButton.addEventListener("click", handleNumberClick(2));
-threeButton.addEventListener("click", handleNumberClick(3));
-fourButton.addEventListener("click", handleNumberClick(4));
-fiveButton.addEventListener("click", handleNumberClick(5));
-sixButton.addEventListener("click", handleNumberClick(6));
-sevenButton.addEventListener("click", handleNumberClick(7));
-eightButton.addEventListener("click", handleNumberClick(8));
-nineButton.addEventListener("click", handleNumberClick(9));
+function handleOperatorClick(operatorSymbol) {
+    
+    return () => {
 
-// bugs funnet hittil
+        if (operatorClicked) {
+            equalsButton.click();
+        }
 
+        operatorClicked = true;
+        if (num1 === "") return;
+        num1 = screenContent.textContent;
+        operator = operatorSymbol;
+        screenContent.textContent += operatorSymbol;
+    }
+}
+
+// equals button
+const equalsButton = document.querySelector(".equals"); 
+
+equalsButton.addEventListener("click", () => {
+    let result = operate(num1, operator, num2);
+    screenContent.textContent = result;
+    num1 = result;
+    num2 = "";
+});
