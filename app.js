@@ -92,15 +92,26 @@ function handleOperatorClick(operatorSymbol) {
     return () => {
 
         if (operatorClicked) {
+            // If two numbers and an operator alredy is in the screen, calculate that first
+            // before adding the operator to the result
+            // example: 1+2+3 
+            // when the user enters the second + (between 2 and 3), the 1+2 will be calculated and 
+            // result (3) shown on the screen with the + after it (3+). The user can then
+            // enter 3 (screen will show 3+3) and get the final result (6). 
             equalsButton.click();
-            return;
+            
+            // two operators cannot be adjacent
+            const lastCharacter = screenContent.textContent.slice(-1);
+            if (["+","-","x","/"].includes(lastCharacter)) {
+                return;
+            }
         }
 
         operatorClicked = true;
         if (num1 === "") return;
         num1 = screenContent.textContent;
         operator = operatorSymbol;
-        screenContent.textContent += operatorSymbol;
+        screenContent.textContent += operatorSymbol;        
     }
 }
 
