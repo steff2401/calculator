@@ -93,6 +93,7 @@ function handleOperatorClick(operatorSymbol) {
 
         if (operatorClicked) {
             equalsButton.click();
+            return;
         }
 
         operatorClicked = true;
@@ -107,6 +108,7 @@ function handleOperatorClick(operatorSymbol) {
 const equalsButton = document.querySelector(".equals"); 
 
 equalsButton.addEventListener("click", () => {
+    if (num1 === "" || num2 === "" || operator === "") return;
     let result = operate(num1, operator, num2);
     screenContent.textContent = result;
     num1 = result;
