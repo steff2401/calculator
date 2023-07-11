@@ -73,6 +73,11 @@ const equalsButton = document.querySelector(".equals");
 function handleOperatorClick(operatorSymbol) {
     
     return () => {
+
+        if (operatorClicked) {
+            equalsButton.click();
+        }
+        
         operatorClicked = true;
         if (num1 === "") return;
         num1 = screenContent.textContent;
