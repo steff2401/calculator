@@ -9,7 +9,6 @@ body {
     width: 400px;
     height: 500px;
     border: 2px solid black;
-    display: flex;
     flex-direction: column;
     background-color: darkcyan;
 }
@@ -19,6 +18,7 @@ body {
     padding: 10px;
     display: flex;
     gap: 8px;
+    height: 20%;
 }
 
 .screen-content {
@@ -26,7 +26,8 @@ body {
     width: 100%;
     padding-left: 5px;
     padding-top: 5px; 
-    font-weight: bolder;
+    font-weight: bold;
+    font-size: 28px;
 }
 
 .buttons {
@@ -35,6 +36,7 @@ body {
     display: flex;
     flex-direction: column;
     gap: 8px;
+    height: 72.5%;
 }
 
 .row1, .row2, .row3,
