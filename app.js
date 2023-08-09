@@ -36,11 +36,13 @@ resetButton.addEventListener("click", () => {
     screenContent.textContent = "";
 });
 
-const commaButton = document.querySelector(".dot-comma");
-commaButton.addEventListener("click", () => {
+const decimalPoint = document.querySelector(".decimal-point");
+decimalPoint.addEventListener("click", () => {
 
-    if (screenContent.textContent.slice(-1) === ".") return;
-    
+    if (!operatorClicked && screenContent.textContent.includes(".")) return;
+
+    if (operatorClicked && screenContent.textContent.split(".").length-1 > 1) return;
+
     screenContent.textContent += ".";
     if (operatorClicked) {
         num2 += ".";
