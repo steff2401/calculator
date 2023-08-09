@@ -38,6 +38,9 @@ resetButton.addEventListener("click", () => {
 
 const commaButton = document.querySelector(".dot-comma");
 commaButton.addEventListener("click", () => {
+
+    if (screenContent.textContent.slice(-1) === ".") return;
+    
     screenContent.textContent += ".";
     if (operatorClicked) {
         num2 += ".";
